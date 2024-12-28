@@ -1,4 +1,4 @@
-mport { notFound } from "next/navigation";
+
 import Link from "next/link";
 import CommentSection from "../../../component/CommentSection";
 
@@ -14,10 +14,7 @@ export default async function BookDetails({
     `https://www.googleapis.com/books/v1/volumes/${id}`
   );
 
-  // Check if the response is ok
-  if (!response.ok) {
-    notFound(); // This will trigger a 404 page if the book is not found
-  }
+
 
   const data = await response.json();
 
