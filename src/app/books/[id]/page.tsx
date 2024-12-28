@@ -1,50 +1,56 @@
+mport { notFound } from "next/navigation";
 import Link from "next/link";
-import CommentSection from "../../../component/CommentSection"
+import CommentSection from "../../../component/CommentSection";
 
 export default async function BookDetails({
   params,
 }: {
   params: { id: string };
 }) {
-  // Fetch book details using the ID from the route
+  const { id } = params;
+
+  // Fetch the book details directly
   const response = await fetch(
-    `https://www.googleapis.com/books/v1/volumes/${params.id}`
+    `https://www.googleapis.com/books/v1/volumes/${id}`
   );
 
-  // Parse the JSON response
-  const book = await response.json();
+  // Check if the response is ok
+  if (!response.ok) {
+    notFound(); // This will trigger a 404 page if the book is not found
+  }
 
-  // Check if the book exists
-  if (!book || !book.volumeInfo) {
+  const data = await response.json();
+
+  // Check if the book data is valid
+  if (!data || !data.volumeInfo) {
     return <div>Book not found</div>;
   }
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      
       <div className="flex-grow flex flex-col items-center p-6 md:p-12">
         <div className="bg-white shadow-lg rounded-lg p-8 max-w-2xl w-full">
           <h1 className="text-4xl font-bold mb-6 text-center text-gray-800">
-            {book.volumeInfo.title}
+            {data.volumeInfo.title}
           </h1>
-          {book.volumeInfo.imageLinks?.thumbnail && (
+          {data.volumeInfo.imageLinks?.thumbnail && (
             <div className="flex justify-center mb-6">
               <img
-                src={book.volumeInfo.imageLinks.thumbnail}
-                alt={book.volumeInfo.title}
+                src={data.volumeInfo.imageLinks.thumbnail}
+                alt={data.volumeInfo.title}
                 className="w-48 h-72 object-cover rounded-lg shadow-md"
               />
             </div>
           )}
           <p className="text-lg text-gray-700 mb-6">
-            {book.volumeInfo.description || "No description available."}
+            {data.volumeInfo.description || "No description available."}
           </p>
           <h2 className="text-2xl font-semibold mb-3 text-gray-800">
             Authors:
           </h2>
           <ul className="list-disc pl-5 mb-6 text-gray-700">
-            {book.volumeInfo.authors ? (
-              book.volumeInfo.authors.map((author: string, index: number) => (
+            {data.volumeInfo.authors ? (
+              data.volumeInfo.authors.map((author: string, index: number) => (
                 <li key={index}>{author}</li>
               ))
             ) : (
@@ -61,7 +67,6 @@ export default async function BookDetails({
         </div>
         <CommentSection />
       </div>
-      
     </div>
   );
 }
