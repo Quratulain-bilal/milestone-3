@@ -1,101 +1,78 @@
-import Image from "next/image";
+// src/app/HomePage.tsx
+import Link from "next/link";
 
-export default function Home() {
+
+const HomePage = () => {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className="min-h-screen bg-gray-50 flex flex-col">
+      {/* Hero Section */}
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      <section
+        className="text-white text-center py-20 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage:
+            "url('https://img.freepik.com/free-photo/glasses-book-near-leaves-warm-blanket_23-2147943382.jpg?ga=GA1.1.682219552.1730314102&semt=ais_hybrid')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          minHeight: "100vh", // Make sure the section takes full screen height
+        }}
+      >
+        <div className="bg-black bg-opacity-50 py-10 px-6 rounded-lg inline-block mx-auto">
+          <h1 className="text-5xl font-bold mb-4">Welcome to My Book Blog</h1>
+          <p className="text-lg mb-6 italic">
+            "A room without books is like a body without a soul." – Marcus
+            Tullius Cicero
+          </p>
+          <p className="text-xl mb-6">Discover your next great read!</p>
+          <Link href="/books">
+            <button className="px-6 py-3 bg-white text-blue-600 font-medium rounded-lg hover:bg-gray-200 transition duration-300">
+              Explore Books
+            </button>
+          </Link>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+      </section>
+
+      {/* Newsletter Signup Section */}
+      <section className="p-8 text-center">
+        <h2 className="text-3xl font-semibold mb-6">
+          Subscribe to Our Newsletter
+        </h2>
+        <p className="mb-4">
+          Get the latest updates on new books and blog posts.
+        </p>
+        <form className="flex justify-center">
+          <input
+            type="email"
+            placeholder="Enter your email"
+            className="border rounded-l-lg p-2"
+            required
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          <button
+            type="submit"
+            className="bg-black text-white rounded-r-lg px-4"
+          >
+            Subscribe
+          </button>
+        </form>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="bg-gray-100 p-8">
+        <h2 className="text-3xl font-semibold mb-6 text-center">
+          What Readers Are Saying
+        </h2>
+        <div className="flex flex-col items-center">
+          <blockquote className="border-l-4 border-blue-500 pl-4 italic mb-4">
+            "This blog has transformed my reading experience!" - Reader A
+          </blockquote>
+          <blockquote className="border-l-4 border-blue-500 pl-4 italic mb-4">
+            "I found so many great books thanks to this site!" - Reader B
+          </blockquote>
+        </div>
+      </section>
     </div>
   );
-}
+};
+
+export default HomePage;
