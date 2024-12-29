@@ -1,24 +1,38 @@
-
 import Link from "next/link";
 import CommentSection from "../../../component/CommentSection";
+
+interface VolumeInfo {
+  title: string;
+  imageLinks?: {
+    thumbnail?: string;
+  };
+  description?: string;
+  authors?: string[];
+}
+
+interface BookData {
+  volumeInfo: VolumeInfo;
+}
 
 export default async function BookDetails({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const { id } = params;
+  const { id } = await params;
 
-  // Fetch the book details directly
-  const response = await fetch(
-    `https://www.googleapis.com/books/v1/volumes/${id}`
-  );
+  let data: BookData;
+  try {
+    const response = await fetch(`https://example.com/api/books/${id}`);
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    data = await response.json();
+  } catch (error) {
+    console.error("Fetch error:", error);
+    return <div>Error fetching book details.</div>;
+  }
 
-
-
-  const data = await response.json();
-
-  // Check if the book data is valid
   if (!data || !data.volumeInfo) {
     return <div>Book not found</div>;
   }
@@ -57,7 +71,7 @@ export default async function BookDetails({
           <div className="flex justify-center">
             <Link href="/books">
               <button className="px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-blue-600 transition duration-300">
-                Back to Books
+                Back to Books{" "}
               </button>
             </Link>
           </div>
